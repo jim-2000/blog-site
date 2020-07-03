@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+<!----->
+{% block title %} {% endblock title %}
+<!---->
+
+{% block stylesheet %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/user.css' %}">
+<!---->
+{% endblock stylesheet %}
+<!---->
+
+{% block profile %}
+<div class="fh5co-bio">
+    <figure>
+        <img src="{{ user.profile_picture.url }}" alt="Free HTML5 Bootstrap Template" class="img-responsive">
+    </figure>
+    <h3 class="heading">About Me</h3>
+    <h2>{{ user.name.get_full_name }}</h2>
+    <h3>{{ user.name.email }}</h3>
+    <p>{{ user.details }} </p>
+    <ul class="fh5co-social">
+        <li><a href="#"><i class="icon-twitter"></i></a></li>
+        <li><a href="#"><i class="icon-facebook"></i></a></li>
+        <li><a href="#"><i class="icon-instagram"></i></a></li>
+    </ul>
+</div>
+{% endblock profile %}
+<!---->
+
+{% block content %}
+
+<section>
+    <div class="Update massage">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <a href="{% url 'tube:Create' %}" class="btn btn-default pull pull-right">Add New </a>
+        <!--for demo wrap-->
+        <h1>Fixed Table header</h1>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0.5">
+                <thead>
+                    <td>Title</td>
+                    <td>CAtagory</td>
+                    <td>post_on</td>
+                    <td>Post Update</td>
+                    <td>Action</td>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="1">
+                <tbody>
+                    {% for p in post %}
+                    <tr>
+                        <td> {{p.title }} </td>
+                        <td>{{p.catagory }}</td>
+                        <td>{{p.post_on }}</td>
+                        <td>{{p.post_update}}</td>
+                        <td><a href="{% url 'tube:Delet' id=p.id %}">Delet</a>||<a href="{% url 'tube:Update' id=p.id %}"> Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<!-- follow me template -->
+<div class="made-with-love">
+    Made with
+    <i>♥</i> by
+    <a target="_blank" href="#">Nikhil Krishnan</a>
+</div>
+{% endblock content %}
+<!---->
+
+{% block script %}
+<script>
+    // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+    $(window).on("load resize ", function() {
+        var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+        $('.tbl-header').css({
+            'padding-right': scrollWidth
+        });
+    }).resize();
+</script>
+
+{% endblock script %}

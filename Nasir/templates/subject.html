@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+<!----->
+{% block title %} Our Topic {% endblock title %}
+<!---->
+
+{% block stylesheet %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/user.css' %}"> {% endblock stylesheet %}
+<!---->
+
+{% block profile %} {% endblock profile %}
+<!---->
+
+{% block content %}
+<div class="container">
+    <section>
+        <div class="Update massage">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="container">
+            <a href="{% url 'tube:create_topic' %}" class="btn btn-default pull pull-right">Add New Catagory </a>
+            <!--for demo wrap-->
+            <h1>Fixed Table header</h1>
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0.5">
+                    <thead>
+                        <td>Name </td>
+                        <td>post_on</td>
+                        <td>Action</td>
+                    </thead>
+                </table>
+            </div>
+            <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="1">
+                    <tbody>
+                        {% for q in quary %}
+                        <tr>
+                            <td>
+                                <a href=" {% url 'tube:Topic' name=q.name %}">{{q.name }}</a> </td>
+                            <td>{{q.post_on }}</td>
+                            <td>
+                                <a href="" ">Delet</a>||<a href=" "> Edit</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock content %}
+<!---->
+
+{% block script %} {% endblock script %}

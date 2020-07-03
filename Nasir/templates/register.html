@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+<!----->
+{% block title %} Please Register for a New Account {% endblock title %}
+<!---->
+
+{% block stylesheet %} {% endblock stylesheet %}
+<!---->
+
+{% block profile %} {% endblock profile %}
+<!---->
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <!---->
+    {{ form.as_p }}
+    <button class="btn btn-success">SINUP</button>
+</form>
+{% endblock content %}
+<!---->
+
+{% block script %} {% endblock script %}
